@@ -1,0 +1,22 @@
+INSERT INTO households (id, owner_name, address) VALUES
+('10000000-0000-4000-8000-000000000001', 'Ayu Lestari', 'Jl. Melati No. 1, Jakarta'),
+('10000000-0000-4000-8000-000000000002', 'Budi Santoso', 'Jl. Mawar No. 2, Jakarta'),
+('10000000-0000-4000-8000-000000000003', 'Citra Dewi', 'Jl. Kenanga No. 3, Bandung'),
+('10000000-0000-4000-8000-000000000004', 'Dimas Putra', 'Jl. Anggrek No. 4, Bandung'),
+('10000000-0000-4000-8000-000000000005', 'Eka Pratiwi', 'Jl. Dahlia No. 5, Surabaya')
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO waste_pickups (id, household_id, type, status, pickup_date, safety_check) VALUES
+('20000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', 'organic', 'completed', now() - interval '3 days', NULL),
+('20000000-0000-4000-8000-000000000002', '10000000-0000-4000-8000-000000000002', 'plastic', 'scheduled', now() + interval '2 days', NULL),
+('20000000-0000-4000-8000-000000000003', '10000000-0000-4000-8000-000000000003', 'electronic', 'completed', now() - interval '1 day', TRUE),
+('20000000-0000-4000-8000-000000000004', '10000000-0000-4000-8000-000000000004', 'paper', 'pending', NULL, NULL),
+('20000000-0000-4000-8000-000000000005', '10000000-0000-4000-8000-000000000005', 'plastic', 'canceled', NULL, NULL),
+('20000000-0000-4000-8000-000000000006', '10000000-0000-4000-8000-000000000005', 'organic', 'completed', now() - interval '2 days', NULL)
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO payments (id, household_id, waste_id, amount, status, payment_date, proof_file_url) VALUES
+('30000000-0000-4000-8000-000000000001', '10000000-0000-4000-8000-000000000001', '20000000-0000-4000-8000-000000000001', 50000.00, 'paid', now() - interval '2 days', '/uploads/sample-proof.pdf'),
+('30000000-0000-4000-8000-000000000002', '10000000-0000-4000-8000-000000000003', '20000000-0000-4000-8000-000000000003', 100000.00, 'pending', NULL, NULL),
+('30000000-0000-4000-8000-000000000003', '10000000-0000-4000-8000-000000000005', '20000000-0000-4000-8000-000000000006', 50000.00, 'failed', NULL, NULL)
+ON CONFLICT (id) DO NOTHING;

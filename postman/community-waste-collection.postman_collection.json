@@ -1,0 +1,112 @@
+{
+  "info": {
+    "_postman_id": "41596d5e-12c0-431d-92f2-9d601daf83ed",
+    "name": "Community Waste Collection API",
+    "description": "Complete API collection. Choose the included local environment. Seed UUID variables work after running seeds/seed.sql.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "base_url", "value": "http://localhost:8080"},
+    {"key": "household_id", "value": "10000000-0000-4000-8000-000000000001"},
+    {"key": "pickup_id", "value": "20000000-0000-4000-8000-000000000002"},
+    {"key": "payment_id", "value": "30000000-0000-4000-8000-000000000002"}
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {"name": "GET Health", "request": {"method": "GET", "url": "{{base_url}}/health"}, "response": [{"name": "Healthy", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"healthy\",\"data\":{\"status\":\"ok\"}}"}]}
+      ]
+    },
+    {
+      "name": "Households",
+      "item": [
+        {
+          "name": "POST Create household",
+          "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"owner_name\": \"Ayu Lestari\",\n  \"address\": \"Jl. Melati No. 1, Jakarta\"\n}", "options": {"raw": {"language": "json"}}}, "url": "{{base_url}}/api/households"},
+          "response": [{"name": "Created", "status": "Created", "code": 201, "body": "{\"success\":true,\"message\":\"household created\",\"data\":{\"id\":\"10000000-0000-4000-8000-000000000001\",\"owner_name\":\"Ayu Lestari\",\"address\":\"Jl. Melati No. 1, Jakarta\"}}"}]
+        },
+        {
+          "name": "GET List households",
+          "request": {"method": "GET", "url": "{{base_url}}/api/households?page=1&limit=10"},
+          "response": [{"name": "Page", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"households retrieved\",\"data\":[],\"meta\":{\"total\":0,\"page\":1,\"limit\":10,\"total_pages\":0}}"}]
+        },
+        {
+          "name": "GET Household by ID",
+          "request": {"method": "GET", "url": "{{base_url}}/api/households/{{household_id}}"},
+          "response": [{"name": "Found", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"household retrieved\",\"data\":{\"id\":\"10000000-0000-4000-8000-000000000001\",\"owner_name\":\"Ayu Lestari\",\"address\":\"Jl. Melati No. 1, Jakarta\"}}"}]
+        },
+        {
+          "name": "DELETE Household",
+          "request": {"method": "DELETE", "url": "{{base_url}}/api/households/{{household_id}}"},
+          "response": [{"name": "Deleted", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"household deleted\",\"data\":{\"id\":\"10000000-0000-4000-8000-000000000001\"}}"}]
+        }
+      ]
+    },
+    {
+      "name": "Pickups",
+      "item": [
+        {
+          "name": "POST Create pickup",
+          "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"household_id\": \"{{household_id}}\",\n  \"type\": \"organic\"\n}", "options": {"raw": {"language": "json"}}}, "url": "{{base_url}}/api/pickups"},
+          "response": [{"name": "Created", "status": "Created", "code": 201, "body": "{\"success\":true,\"message\":\"pickup created\",\"data\":{\"id\":\"20000000-0000-4000-8000-000000000007\",\"household_id\":\"10000000-0000-4000-8000-000000000001\",\"type\":\"organic\",\"status\":\"pending\"}}"}]
+        },
+        {
+          "name": "GET List pickups",
+          "request": {"method": "GET", "url": "{{base_url}}/api/pickups?status=pending&household_id={{household_id}}&page=1&limit=10"},
+          "response": [{"name": "Page", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"pickups retrieved\",\"data\":[],\"meta\":{\"total\":0,\"page\":1,\"limit\":10,\"total_pages\":0}}"}]
+        },
+        {
+          "name": "PUT Schedule pickup",
+          "request": {"method": "PUT", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"pickup_date\": \"2030-01-01T09:00:00Z\"\n}", "options": {"raw": {"language": "json"}}}, "url": "{{base_url}}/api/pickups/{{pickup_id}}/schedule"},
+          "response": [{"name": "Scheduled", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"pickup scheduled\",\"data\":{\"id\":\"20000000-0000-4000-8000-000000000002\",\"status\":\"scheduled\",\"pickup_date\":\"2030-01-01T09:00:00Z\"}}"}]
+        },
+        {
+          "name": "PUT Complete pickup",
+          "request": {"method": "PUT", "url": "{{base_url}}/api/pickups/{{pickup_id}}/complete"},
+          "response": [{"name": "Completed", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"pickup completed\",\"data\":{\"id\":\"20000000-0000-4000-8000-000000000002\",\"status\":\"completed\"}}"}]
+        },
+        {
+          "name": "PUT Cancel pickup",
+          "request": {"method": "PUT", "url": "{{base_url}}/api/pickups/{{pickup_id}}/cancel"},
+          "response": [{"name": "Canceled", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"pickup canceled\",\"data\":{\"id\":\"20000000-0000-4000-8000-000000000002\",\"status\":\"canceled\"}}"}]
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "POST Create manual payment",
+          "request": {"method": "POST", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\n  \"household_id\": \"{{household_id}}\",\n  \"waste_id\": \"{{pickup_id}}\",\n  \"amount\": \"50000.00\"\n}", "options": {"raw": {"language": "json"}}}, "url": "{{base_url}}/api/payments"},
+          "response": [{"name": "Created", "status": "Created", "code": 201, "body": "{\"success\":true,\"message\":\"payment created\",\"data\":{\"id\":\"30000000-0000-4000-8000-000000000004\",\"household_id\":\"10000000-0000-4000-8000-000000000001\",\"waste_id\":\"20000000-0000-4000-8000-000000000002\",\"amount\":\"50000.00\",\"status\":\"pending\"}}"}]
+        },
+        {
+          "name": "GET List payments",
+          "request": {"method": "GET", "url": "{{base_url}}/api/payments?status=pending&household_id={{household_id}}&page=1&limit=10"},
+          "response": [{"name": "Page", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"payments retrieved\",\"data\":[],\"meta\":{\"total\":0,\"page\":1,\"limit\":10,\"total_pages\":0}}"}]
+        },
+        {
+          "name": "PUT Confirm payment (multipart)",
+          "request": {"method": "PUT", "body": {"mode": "formdata", "formdata": [{"key": "proof", "type": "file", "src": ""}]}, "url": "{{base_url}}/api/payments/{{payment_id}}/confirm", "description": "Pilih file JPG, PNG, atau PDF pada field proof (maksimum 5 MB)."},
+          "response": [{"name": "Paid", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"payment confirmed\",\"data\":{\"id\":\"30000000-0000-4000-8000-000000000002\",\"status\":\"paid\",\"payment_date\":\"2026-10-08T02:00:00Z\",\"proof_file_url\":\"/uploads/{uuid}.pdf\"}}"}]
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "GET Waste summary",
+          "request": {"method": "GET", "url": "{{base_url}}/api/reports/waste-summary"},
+          "response": [{"name": "Summary", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"waste summary retrieved\",\"data\":[{\"type\":\"organic\",\"status\":\"completed\",\"count\":1}]}"}]
+        },
+        {
+          "name": "GET Payment summary",
+          "request": {"method": "GET", "url": "{{base_url}}/api/reports/payment-summary"},
+          "response": [{"name": "Summary", "status": "OK", "code": 200, "body": "{\"success\":true,\"message\":\"payment summary retrieved\",\"data\":{\"payments\":[{\"status\":\"paid\",\"count\":1,\"total\":\"50000.00\"}],\"total_revenue\":\"50000.00\"}}"}]
+        }
+      ]
+    }
+  ]
+}

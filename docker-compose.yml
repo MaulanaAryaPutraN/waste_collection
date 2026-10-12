@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-waste_collection}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+
+  app:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      APP_PORT: 8080
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${DB_USER:-postgres}
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
+      DB_NAME: ${DB_NAME:-waste_collection}
+      DB_SSLMODE: disable
+      UPLOAD_DIR: /app/uploads
+      MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-5}
+      SHUTDOWN_TIMEOUT_SECONDS: ${SHUTDOWN_TIMEOUT_SECONDS:-10}
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    volumes:
+      - uploads:/app/uploads
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  uploads:

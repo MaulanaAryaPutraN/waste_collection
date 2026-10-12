@@ -1,0 +1,8 @@
+.git
+.env
+*.log
+coverage.out
+uploads/*
+!uploads/.gitkeep
+README.md
+postman/
