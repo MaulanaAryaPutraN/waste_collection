@@ -1,0 +1,494 @@
+{
+  "info": {
+    "_postman_id": "e73b9661-205f-4845-be8d-ecd21b027fcc",
+    "name": "Sampah",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58802538",
+    "_collection_link": "https://go.postman.co/collection/58802538-e73b9661-205f-4845-be8d-ecd21b027fcc?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Household",
+      "item": [
+        {
+          "name": "Daftar household",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/households",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "households"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tambah household",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"owner_name\" : \"Permata Ayu\",\r\n    \"address\" : \"Perumahan Araya\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/households",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "households"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Detail household",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "id",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"owner_name\" : \"Permata Ayu\",\r\n    \"address\" : \"Perumahan Araya\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/households/98c46542-31d0-4d5c-bbca-e171c36eda0f",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "households",
+                "98c46542-31d0-4d5c-bbca-e171c36eda0f"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete household",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "id",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"owner_name\" : \"Permata Ayu\",\r\n    \"address\" : \"Perumahan Araya\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/households/98c46542-31d0-4d5c-bbca-e171c36eda0f",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "households",
+                "98c46542-31d0-4d5c-bbca-e171c36eda0f"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Waste Pickup",
+      "item": [
+        {
+          "name": "Daftar pickup",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/pickups",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "pickups"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Daftar pickup filter",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"household_id\": \"305d6491-e0c1-4040-b4c6-cd1ea01d4e03\",\r\n  \"type\": \"electronic\",\r\n  \"safety_check\": true\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/pickups?status=pending&household_id=305d6491-e0c1-4040-b4c6-cd1ea01d4e03&page=1&limit=10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "pickups"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "pending"
+                },
+                {
+                  "key": "household_id",
+                  "value": "305d6491-e0c1-4040-b4c6-cd1ea01d4e03"
+                },
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tambah pickup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"household_id\": \"305d6491-e0c1-4040-b4c6-cd1ea01d4e03\",\r\n  \"type\": \"electronic\",\r\n  \"safety_check\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/pickups",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "pickups"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Jadwal pickup",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"pickup_date\": \"2026-12-01T09:00:00Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/pickups/17574a89-7cb0-46e5-bae4-59f38df05ece/schedule",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "pickups",
+                "17574a89-7cb0-46e5-bae4-59f38df05ece",
+                "schedule"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Selesai pickup",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"pickup_date\": \"2026-12-01T09:00:00Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/pickups/17574a89-7cb0-46e5-bae4-59f38df05ece/schedule",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "pickups",
+                "17574a89-7cb0-46e5-bae4-59f38df05ece",
+                "schedule"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel pickup",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"pickup_date\": \"2026-12-01T09:00:00Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/pickups/17574a89-7cb0-46e5-bae4-59f38df05ece/schedule",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "pickups",
+                "17574a89-7cb0-46e5-bae4-59f38df05ece",
+                "schedule"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Daftar payment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/payments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "payments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tambah Payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"household_id\": \"10000000-0000-4000-8000-000000000002\",\r\n    \"waste_id\": \"fe8e7b77-3b01-4b27-88b0-5520218b4d30\",\r\n    \"amount\": 25000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/payments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "payments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Konfirmasi Payment",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "proof",
+                  "type": "file",
+                  "uuid": "e4b6c0b0-b389-481f-9fb2-4167f9c82751",
+                  "src": "/C:/Users/user/OneDrive/Pictures/WhatsApp Image 2026-08-06 at 18.36.21.jpeg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/payments/30eaa452-b2f7-402a-b26f-a0fe62674c3c/confirm",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "payments",
+                "30eaa452-b2f7-402a-b26f-a0fe62674c3c",
+                "confirm"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reporting",
+      "item": [
+        {
+          "name": "Pengemlompokan pickup",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/reports/waste-summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "reports",
+                "waste-summary"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Total Payment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/reports/payment-summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "reports",
+                "payment-summary"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Bonus",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/payments?date_from=2026-01-01&date_to=2027-01-01&page=1&limit=10",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "payments"
+          ],
+          "query": [
+            {
+              "key": "date_from",
+              "value": "2026-01-01"
+            },
+            {
+              "key": "date_to",
+              "value": "2027-01-01"
+            },
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
