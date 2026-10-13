@@ -278,7 +278,7 @@ Proyek menyediakan collection Postman dan environment lokal agar setiap endpoint
 
 Import kedua file berikut ke Postman:
 
-- `postman/community-waste-collection.postman_collection.json`
+- `postman/Sampah.postman_collection.json`
 - `postman/local.postman_environment.json`
 
 Setelah import, pilih environment **Community Waste Collection - Local**. Variabel `base_url` secara default menggunakan `http://localhost:8080`.
